@@ -46,9 +46,8 @@ $result = pg_query_params($conn, $sql, [$name, $username, $email, $password]);
 if (!$result) {
     die("❌ Lỗi khi đăng ký: " . pg_last_error($conn));
 } else {
-    echo "✅ Đăng ký thành công!";
-    header("Location: login.php");
-    exit();
+    echo "✅ Đăng ký thành công! <br>";
+    <a href="login.php" class="btn">Đăng nhập</a>
 }
 
 
