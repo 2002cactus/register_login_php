@@ -39,8 +39,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Lấy danh sách người dùng
-$userListQuery = "SELECT id, name, email FROM users";
-$userListResult = pg_query($conn, $userListQuery);
+// $userListQuery = "SELECT id, name, email FROM users";
+// $userListResult = pg_query($conn, $userListQuery);
 ?>
 
 <!DOCTYPE html>
