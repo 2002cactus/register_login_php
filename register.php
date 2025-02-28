@@ -7,31 +7,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="container">
-    <h2>Đăng ký tài khoản</h2>
-    
-    <form action="register_process.php" method="POST">
-        <div class="form-group">
-            <label>Họ và Tên</label>
-            <input type="text" name="name" required>
-        </div>
-
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" required>
-        </div>
-
-        <div class="form-group">
-            <label>Mật khẩu</label>
-            <input type="password" name="password" required>
-        </div>
-
-        <button type="submit">Đăng ký</button>
-    </form>
-
-    <a href="index.php">Đã có tài khoản? Đăng nhập ngay</a>
-</div>
-
+    <div class="container">
+        <h2>Đăng ký tài khoản</h2>
+        <form action="register_process.php" method="POST">
+            <div class="form-group">
+                <label for="name">Họ và Tên:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Tên đăng nhập:</label>
+                <input type="text" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit">Đăng ký</button>
+        </form>
+    </div>
 </body>
 </html>
