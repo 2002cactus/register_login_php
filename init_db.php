@@ -13,25 +13,27 @@ if (!$conn) {
     die("❌ Lỗi kết nối database: " . pg_last_error());
 }
 
-// Tạo bảng `users`
-$sql = "
-DROP TABLE IF EXISTS users;
+// Xóa bảng nếu đã tồn tại
+$query_drop = "DROP TABLE IF EXISTS users CASCADE;";
+pg_query($conn, $query_drop);
 
+// Tạo lại bảng users với cấu trúc đúng
+$query_create = "
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ";
-
-$result = pg_query($conn, $sql);
+$result = pg_query($conn, $query_create);
 
 if ($result) {
-    echo "✅ Bảng `users` đã được tạo thành công!\n";
+    echo "✅ Bảng users đã được tạo lại thành công!";
 } else {
-    echo "❌ Lỗi khi tạo bảng: " . pg_last_error();
+    echo "❌ Lỗi khi tạo bảng: " . pg_last_error($conn);
 }
 
 // Đóng kết nối
