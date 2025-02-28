@@ -1,40 +1,34 @@
 <?php
-session_start();
-require 'db_connect.php'; // Đảm bảo có file này để kết nối database
+// Lấy thông tin database từ biến môi trường
+$host = getenv('DB_HOST');
+$port = getenv('DB_PORT');
+$dbname = getenv('DB_NAME');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASSWORD');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
+// Kết nối đến PostgreSQL
+$conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$pass");
 
-    if (!empty($name) && !empty($email) && !empty($password)) {
-        // Mã hóa mật khẩu
-        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-        // Kết nối database
-        $conn = pg_connect("host=".getenv('DB_HOST')." dbname=".getenv('DB_NAME')." user=".getenv('DB_USER')." password=".getenv('DB_PASSWORD'));
-
-        if (!$conn) {
-            die("Lỗi kết nối DB: " . pg_last_error());
-        }
-
-        // Thực hiện INSERT
-        $query = "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)";
-        $result = pg_query_params($conn, $query, [$name, $email, $hashed_password]);
-
-        if ($result) {
-            $_SESSION['user'] = $name;
-            header("Location: dashboard.php");
-            exit();
-        } else {
-            echo "Lỗi khi đăng ký: " . pg_last_error();
-        }
-
-        pg_close($conn);
-    } else {
-        echo "Vui lòng điền đầy đủ thông tin!";
-    }
-} else {
-    echo "Yêu cầu không hợp lệ!";
+if (!$conn) {
+    die("❌ Lỗi kết nối database: " . pg_last_error());
 }
+
+// Nhận dữ liệu từ form
+$name = $_POST['name'];
+$username = $_POST['username'];
+$email = $_POST['email'];
+$password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Băm mật khẩu
+
+// Thêm người dùng vào database
+$sql = "INSERT INTO users (name, username, email, password) VALUES ($1, $2, $3, $4)";
+$result = pg_query_params($conn, $sql, [$name, $username, $email, $password]);
+
+if ($result) {
+    echo "✅ Đăng ký thành công!";
+} else {
+    echo "❌ Lỗi: " . pg_last_error();
+}
+
+// Đóng kết nối
+pg_close($conn);
 ?>
