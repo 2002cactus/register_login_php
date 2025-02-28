@@ -1,27 +1,37 @@
-<?php
-require_once '../config/database.php';
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Mã hóa mật khẩu
+<div class="container">
+    <h2>Đăng ký tài khoản</h2>
+    
+    <form action="register_process.php" method="POST">
+        <div class="form-group">
+            <label>Họ và Tên</label>
+            <input type="text" name="name" required>
+        </div>
 
-    $query = "INSERT INTO users (username, password) VALUES ($1, $2)";
-    $result = pg_query_params($conn, $query, [$username, $password]);
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" required>
+        </div>
 
-    if ($result) {
-        echo "Đăng ký thành công! <a href='login.php'>Đăng nhập ngay</a>";
-    } else {
-        echo "Lỗi: " . pg_last_error($conn);
-    }
+        <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" name="password" required>
+        </div>
 
-    pg_close($conn);
-}
-?>
+        <button type="submit">Đăng ký</button>
+    </form>
 
-<form method="POST">
-    <label>Tên đăng nhập:</label>
-    <input type="text" name="username" required>
-    <label>Mật khẩu:</label>
-    <input type="password" name="password" required>
-    <button type="submit">Đăng ký</button>
-</form>
+    <a href="index.php">Đã có tài khoản? Đăng nhập ngay</a>
+</div>
+
+</body>
+</html>
