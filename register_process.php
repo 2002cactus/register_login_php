@@ -47,7 +47,7 @@ if (!$result) {
     die("❌ Lỗi khi đăng ký: " . pg_last_error($conn));
 } else {
     echo "✅ Đăng ký thành công! <br>";
-    <a href="login.php" class="btn">Đăng nhập</a>;
+    echo '<a href="login.php" class="btn">Đăng nhập</a>';
 }
 
 
