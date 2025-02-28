@@ -1,10 +1,10 @@
 <?php
 // Lấy thông tin database từ biến môi trường
-$host = getenv('DB_HOST') ?: 'localhost';
-$port = getenv('DB_PORT') ?: '5432';
-$dbname = getenv('DB_NAME') ?: 'admindb';
-$user = getenv('DB_USER') ?: 'postgres';
-$pass = getenv('DB_PASSWORD') ?: 'password';
+$host = getenv('DB_HOST');
+$port = getenv('DB_PORT');
+$dbname = getenv('DB_NAME');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASSWORD');
 
 // Kết nối đến PostgreSQL
 $conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$pass");
