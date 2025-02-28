@@ -1,22 +1,10 @@
 <?php
 session_start();
-require_once 'config/database.php';
-
-// Kiểm tra xem người dùng đã đăng nhập chưa
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+if (isset($_SESSION['user_id'])) {
+    header("Location: dashboard.php");
     exit();
 }
-
-// Lấy thông tin người dùng
-$user_id = $_SESSION['user_id'];
-$sql = "SELECT name, username, email FROM users WHERE id = $1";
-$result = pg_query_params($conn, $sql, array($user_id));
-$user = pg_fetch_assoc($result);
-
-pg_close($conn);
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -26,9 +14,11 @@ pg_close($conn);
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Chào mừng, <?php echo htmlspecialchars($user['name']); ?>!</h2>
-    <p>Tên đăng nhập: <?php echo htmlspecialchars($user['username']); ?></p>
-    <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
-    <a href="logout.php">Đăng xuất</a>
+    <div class="container">
+        <h2>Chào mừng đến với hệ thống</h2>
+        <p>Vui lòng đăng nhập hoặc đăng ký để tiếp tục.</p>
+        <a href="login.php" class="btn">Đăng nhập</a>
+        <a href="register.php" class="btn">Đăng ký</a>
+    </div>
 </body>
 </html>
