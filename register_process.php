@@ -26,7 +26,7 @@ $email = trim($_POST['email']);
 $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Băm mật khẩu
 
 // Kiểm tra xem username hoặc email đã tồn tại chưa
-$check_query = "SELECT id FROM users WHERE username = CAST($2 AS TEXT) OR email = CAST($3 AS TEXT)";
+$check_query = "SELECT id FROM users WHERE username = CAST($1 AS TEXT) OR email = CAST($2 AS TEXT)";
 $check_result = pg_query_params($conn, $check_query, [$username, $email]);
 
 if (!$check_result) {
