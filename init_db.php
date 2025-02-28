@@ -15,9 +15,9 @@ if (!$conn) {
 
 // Tạo bảng `users`
 $sql = "
-DROP TABLE users;
+DROP TABLE users IF EXISTS;
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
