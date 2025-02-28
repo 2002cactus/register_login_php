@@ -2,11 +2,11 @@
 session_start();
 
 // Lấy thông tin từ biến môi trường
-$host = getenv('DB_HOST') ?: 'localhost';
-$port = getenv('DB_PORT') ?: '5432';
-$dbname = getenv('DB_NAME') ?: 'admindb';
-$user = getenv('DB_USER') ?: 'postgres';
-$password = getenv('DB_PASS') ?: 'password';
+$host = getenv('DB_HOST');
+$port = getenv('DB_PORT');
+$dbname = getenv('DB_NAME');
+$user = getenv('DB_USER');
+$password = getenv('DB_PASS');
 
 // Kết nối database
 $conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
