@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Sao chép mã nguồn vào container
-COPY ./public /var/www/html/
+COPY ./ /var/www/html/
 
 # Thiết lập quyền cho thư mục web
 RUN chown -R www-data:www-data /var/www/html
