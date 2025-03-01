@@ -26,7 +26,7 @@ $email = trim($_POST['email']);
 $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Băm mật khẩu
 
 // Kiểm tra xem username hoặc email đã tồn tại chưa
-$check_query = "SELECT id FROM users WHERE username = $username OR email = $email";
+$check_query = "SELECT id FROM users WHERE username = CAST($1 AS TEXT) OR email = CAST($2 AS TEXT)";
 $check_result = pg_query_params($conn, $check_query, [$username, $email]);
 
 if (!$check_result) {
@@ -39,7 +39,7 @@ if (pg_num_rows($check_result) > 0) {
 
 // Chèn dữ liệu vào bảng users
 $sql = "INSERT INTO users (name, username, email, password) 
-        VALUES (?, ?, ?, ?)";
+        VALUES (CAST($1 AS TEXT), CAST($2 AS TEXT), CAST($3 AS TEXT), CAST($4 AS TEXT))";
 
 $result = pg_query_params($conn, $sql, [$name, $username, $email, $password]);
 
