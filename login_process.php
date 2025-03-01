@@ -27,6 +27,7 @@ if ($row = pg_fetch_assoc($result)) {
     if (password_verify($password, $row['password'])) {
         $_SESSION['user_id'] = $row['id'];
         echo "✅ Đăng nhập thành công!";
+        echo '<a href="index.php" class="btn">Trang chủ</a>';
     } else {
         echo "❌ Sai mật khẩu!";
     }
