@@ -8,22 +8,12 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Lấy thông tin database
-$host = getenv('DB_HOST');
-$port = getenv('DB_PORT');
-$dbname = getenv('DB_NAME');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASS');
+require 'database.php';
 
-// Kết nối database
-$conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$pass");
+$id = $_SESSION['user_id'];
+$sql = "SELECT username FROM users WHERE id = $id";  
+$result = pg_query($conn, $sql);
 
-if (!$conn) {
-    die("❌ Lỗi kết nối database: " . pg_last_error());
-}
-
-// Lấy thông tin người dùng từ database
-$sql = "SELECT username FROM users WHERE id = $id";
-$result = pg_query_params($conn, $sql, [$_SESSION['user_id']]);
 $userData = pg_fetch_assoc($result);
 
 // Nếu không tìm thấy user, đăng xuất
@@ -33,7 +23,7 @@ if (!$userData) {
     exit();
 }
 
-$username = htmlspecialchars($userData['username']); // Bảo vệ XSS
+$username = $userData['username'];
 
 // Đóng kết nối database
 pg_close($conn);
@@ -50,7 +40,7 @@ pg_close($conn);
 <body>
 
 <div class="container">
-    <h2>Chào mừng, <?php echo $username; ?>!</h2>
+    <h2>Chào mừng, <?php echo $username; ?>!</h2> 
     <p>Bạn đã đăng nhập thành công.</p>
     <a href="logout.php">Đăng xuất</a>
 </div>
