@@ -16,7 +16,7 @@ $password = $_POST['password'];
 
 // Kiểm tra xem username hoặc email đã tồn tại chưa
 $check_query = "SELECT id FROM users WHERE username = '$username' OR email = '$email'";
-$check_result = pg_query_params($conn, $check_query);
+$check_result = pg_query($conn, $check_query);
 
 if (pg_num_rows($check_result) > 0) {
     die("❌ Tên người dùng hoặc email đã tồn tại!");
@@ -26,7 +26,7 @@ if (pg_num_rows($check_result) > 0) {
 $sql = "INSERT INTO users (name, username, email, password) 
         VALUES ('$name', '$username', '$email', '$password')";
 
-$result = pg_query_params($conn, $sql);
+$result = pg_query($conn, $sql);
 
 if (!$result) {
     die("❌ Lỗi khi đăng ký: " . pg_last_error($conn));
