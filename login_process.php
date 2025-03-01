@@ -20,7 +20,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 // Kiểm tra người dùng trong database
-$sql = "SELECT id, password FROM users WHERE username = $1";
+$sql = "SELECT id, password FROM users WHERE username = $username";
 $result = pg_query_params($conn, $sql, [$username]);
 
 if ($row = pg_fetch_assoc($result)) {
