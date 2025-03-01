@@ -15,7 +15,7 @@ if (!$conn) {
 
 // Xóa bảng nếu đã tồn tại
 $query_drop = "DROP TABLE IF EXISTS users CASCADE;";
-pg_query($conn, $query_drop);
+$result_drop = pg_query($conn, $query_drop);
 
 // Tạo lại bảng users với cấu trúc đúng
 $query_create = "
