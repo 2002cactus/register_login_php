@@ -21,7 +21,7 @@ $password = $_POST['password'];
 
 // Kiểm tra người dùng trong database
 $sql = "SELECT id, password FROM users WHERE username = $username";
-$result = pg_query_params($conn, $sql, [$username]);
+$result = pg_query_params($conn, $sql);
 
 if ($row = pg_fetch_assoc($result)) {
     if (password_verify($password, $row['password'])) {
