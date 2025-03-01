@@ -22,7 +22,7 @@ if (!$conn) {
 }
 
 // Lấy thông tin người dùng từ database
-$sql = "SELECT username FROM users WHERE id = $1";
+$sql = "SELECT username FROM users WHERE id = $id";
 $result = pg_query_params($conn, $sql, [$_SESSION['user_id']]);
 $userData = pg_fetch_assoc($result);
 
