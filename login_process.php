@@ -10,7 +10,7 @@ $password = $_POST['password'];
 
 // Kiểm tra người dùng trong database
 $sql = "SELECT id, password FROM users WHERE username = '$username'";
-$result = pg_query_params($conn, $sql);
+$result = pg_query($conn, $sql);
 
 if ($row = pg_fetch_assoc($result)) {
     $_SESSION['user_id'] = $row['id'];
