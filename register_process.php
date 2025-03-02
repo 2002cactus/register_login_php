@@ -15,7 +15,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 
 // Kiểm tra xem username hoặc email đã tồn tại chưa
-$check_query = "SELECT id FROM users WHERE username = '$username' OR email = '$email'";
+$check_query = "SELECT id FROM users WHERE email = '$email'";
 $check_result = pg_query($conn, $check_query);
 
 if (pg_num_rows($check_result) > 0) {
