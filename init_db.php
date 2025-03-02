@@ -2,6 +2,9 @@
 // Lấy thông tin database
 require 'database.php';
 
+$query_truncate = "TRUNCATE TABLE users RESTART IDENTITY CASCADE;";
+$result_truncate = pg_query($conn, $query_truncate);
+
 // Xóa bảng nếu đã tồn tại
 $query_drop = "DROP TABLE IF EXISTS users CASCADE;";
 $result_drop = pg_query($conn, $query_drop);
