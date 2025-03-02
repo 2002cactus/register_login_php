@@ -14,14 +14,6 @@ $username = $_POST['username'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-// Kiểm tra xem username hoặc email đã tồn tại chưa
-$check_query = "SELECT id FROM users WHERE email = '$email'";
-$check_result = pg_query($conn, $check_query);
-
-if (pg_num_rows($check_result) > 0) {
-    die("❌ Tên người dùng hoặc email đã tồn tại!");
-}
-
 // Chèn dữ liệu vào bảng users
 $sql = "INSERT INTO users (name, username, email, password) 
         VALUES ('$name', '$username', '$email', '$password')";
